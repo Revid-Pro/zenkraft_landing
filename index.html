@@ -306,3 +306,88 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zenkraft Ön Kayıt</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f7f8fc;
+      color: #222;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+      max-width: 400px;
+    }
+    button {
+      background-color: #0d6efd;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0b5ed7;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🚀 Zenkraft'a Ön Kayıt</h1>
+  <p>Aşağıdaki formu doldurarak ön kayıt yaptırabilirsin.</p>
+
+  <form id="register-form">
+    <label>İsim:</label><br>
+    <input type="text" id="name" required><br><br>
+
+    <label>Email:</label><br>
+    <input type="email" id="email" required><br><br>
+
+    <label>Uzmanlık Alanın:</label><br>
+    <input type="text" id="expertise"><br><br>
+
+    <button type="submit">Kayıt Ol</button>
+  </form>
+
+  <script>
+    const form = document.getElementById("register-form");
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const formData = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        expertise: document.getElementById("expertise").value,
+        timestamp: new Date().toISOString()
+      };
+
+      const supabaseUrl = "https://SENIN-SUPABASE-URL.supabase.co";
+      const supabaseKey = "SENIN-ANON-KEY";
+
+      const response = await fetch(`${supabaseUrl}/rest/v1/pre_registrations`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": supabaseKey,
+          "Authorization": `Bearer ${supabaseKey}`
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        alert("🎉 Kayıt başarıyla gönderildi!");
+        form.reset();
+      } else {
+        alert("⚠️ Hata oluştu, tekrar dene.");
+      }
+    });
+  </script>
+
+</body>
+</html>

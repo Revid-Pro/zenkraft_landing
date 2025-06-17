@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenkraft - Üret. Büyü. Parılda.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/supabase-js/2.38.0/umd/supabase.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'zen-blue': '#0066ff',
+                        'zen-purple': '#6366f1',
+                        'zen-dark': '#0f172a',
+                        'zen-gray': '#64748b'
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes glow {
+            from { box-shadow: 0 0 20px #0066ff44; }
+            to { box-shadow: 0 0 30px #0066ff88; }
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #0066ff, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-zen-dark via-slate-900 to-zen-dark text-white min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-effect">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-2xl font-bold gradient-text">Zenkraft</div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#features" class="hover:text-zen-blue transition-colors">Özellikler</a>
+                    <a href="#countdown" class="hover:text-zen-blue transition-colors">Lansман</a>
+                    <a href="#register" class="bg-zen-blue px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">Ön Kayıt</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-6">
+        <div class="container mx-auto text-center">
+            <div class="animate-float mb-8">
+                <div class="inline-block p-8 rounded-full bg-gradient-to-r from-zen-blue to-zen-purple animate-glow">
+                    <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                <span class="gradient-text">Üret.</span> 
+                <span class="gradient-text">Büyü.</span> 
+                <span class="gradient-text">Parılda.</span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-zen-gray mb-12 max-w-3xl mx-auto">
+                Freelance dünyası yeniden şekilleniyor. Yapay zekâ destekli yeni nesil yetenek platformuna sen de katıl!
+            </p>
+            
+            <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+                <button onclick="scrollToRegister()" class="bg-gradient-to-r from-zen-blue to-zen-purple px-8 py-4 rounded-xl text-lg font-semibold hover:scale-105 transition-transform animate-glow">
+                    🚀 Ön Kayıt Ol
+                </button>
+                <button onclick="scrollToFeatures()" class="glass-effect px-8 py-4 rounded-xl text-lg font-semibold hover:scale-105 transition-transform">
+                    ✨ Keşfet
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 px-6">
+        <div class="container mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 gradient-text">
+                Sana Ne Kazandırır?
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="glass-effect p-8 rounded-2xl hover:scale-105 transition-transform">
+                    <div class="text-4xl mb-4">🤖</div>
+                    <h3 class="text-2xl font-bold mb-4 text-zen-blue">AI Destekli Portfolyo</h3>
+                    <p class="text-zen-gray mb-4">
+                        Freelancer'lar için zahmetsiz, etkileyici ve kişiselleştirilmiş portfolyo sistemleri. Yeteneklerini otomatik olarak analiz eder, etkili sunumlarla vitrine çıkarır.
+                    </p>
+                    <div class="text-sm italic text-zen-purple">"CV değil, karakter anlatan vitrin!"</div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="glass-effect p-8 rounded-2xl hover:scale-105 transition-transform">
+                    <div class="text-4xl mb-4">🎯</div>
+                    <h3 class="text-2xl font-bold mb-4 text-zen-blue">Akıllı Eşleştirme</h3>
+                    <p class="text-zen-gray mb-4">
+                        Freelancer'a uygun iş teklifleri ve görevler; yapay zekâ destekli eşleştirme ile. Boş zaman yok, sadece değerli fırsatlar.
+                    </p>
+                    <div class="text-sm italic text-zen-purple">"Sen arama, biz sana getirelim."</div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="glass-effect p-8 rounded-2xl hover:scale-105 transition-transform">
+                    <div class="text-4xl mb-4">🌱</div>
+                    <h3 class="text-2xl font-bold mb-4 text-zen-blue">Seviye Sistemi</h3>
+                    <p class="text-zen-gray mb-4">
+                        Tamamladığın projelerle gelişim seviyesi artar. Yeni rozetler, özel görevler ve premium avantajlar seni bekliyor.
+                    </p>
+                    <div class="text-sm italic text-zen-purple">"Yetenek gelişir, statü yükselir."</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Countdown Section -->
+    <section id="countdown" class="py-20 px-6 bg-gradient-to-r from-zen-blue/20 to-zen-purple/20">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8 gradient-text">
+                Açılışa Geri Sayım Başladı
+            </h2>
+            
+            <div class="text-2xl mb-8 text-zen-gray">
+                📆 Lansman: <span class="text-white font-bold">1 Ekim 2025</span>
+            </div>
+            
+            <div class="flex justify-center space-x-4 md:space-x-8 mb-12">
+                <div class="glass-effect p-4 rounded-xl">
+                    <div class="text-3xl font-bold text-zen-blue" id="days">000</div>
+                    <div class="text-sm text-zen-gray">GÜN</div>
+                </div>
+                <div class="glass-effect p-4 rounded-xl">
+                    <div class="text-3xl font-bold text-zen-blue" id="hours">00</div>
+                    <div class="text-sm text-zen-gray">SAAT</div>
+                </div>
+                <div class="glass-effect p-4 rounded-xl">
+                    <div class="text-3xl font-bold text-zen-blue" id="minutes">00</div>
+                    <div class="text-sm text-zen-gray">DAKİKA</div>
+                </div>
+                <div class="glass-effect p-4 rounded-xl">
+                    <div class="text-3xl font-bold text-zen-blue" id="seconds">00</div>
+                    <div class="text-sm text-zen-gray">SANİYE</div>
+                </div>
+            </div>
+            
+            <div class="text-lg text-zen-gray">
+                🎁 <strong>Bugün Ön Kayıt Ol</strong> – Lansmanda premium özelliklere özel erişim fırsatını kaçırma!
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section id="register" class="py-20 px-6">
+        <div class="container mx-auto max-w-2xl">
+            <div class="glass-effect p-8 rounded-2xl">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 gradient-text">
+                    Ön Kayıt Ol
+                </h2>
+                
+                <!-- Success Message -->
+                <div id="successMessage" class="hidden mb-6 p-4 bg-green-500/20 border border-green-500/40 rounded-xl text-center">
+                    <div class="text-green-400 font-semibold">🎉 Kayıt başarılı!</div>
+                    <div class="text-sm text-zen-gray mt-2">Lansmanla ilgili güncellemeleri e-posta ile alacaksın.</div>
+                </div>
+
+                <!-- Error Message -->
+                <div id="errorMessage" class="hidden mb-6 p-4 bg-red-500/20 border border-red-500/40 rounded-xl text-center">
+                    <div class="text-red-400 font-semibold">❌ Kayıt başarısız!</div>
+                    <div class="text-sm text-zen-gray mt-2" id="errorText">Bir hata oluştu. Lütfen tekrar deneyin.</div>
+                </div>
+                
+                <form id="preRegisterForm" class="space-y-6">
+                    <div>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            placeholder="Ad Soyad" 
+                            required
+                            class="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-zen-gray focus:outline-none focus:border-zen-blue transition-colors"
+                        >
+                    </div>
+                    
+                    <div>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            placeholder="E-posta Adresi" 
+                            required
+                            class="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-zen-gray focus:outline-none focus:border-zen-blue transition-colors"
+                        >
+                    </div>
+
+                    <div>
+                        <input 
+                            type="tel" 
+                            id="phone" 
+                            placeholder="Telefon Numarası" 
+                            class="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-zen-gray focus:outline-none focus:border-zen-blue transition-colors"
+                        >
+                    </div>
+                    
+                    <div>
+                        <select 
+                            id="expertise" 
+                            required
+                            class="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white focus:outline-none focus:border-zen-blue transition-colors"
+                        >
+                            <option value="" class="bg-zen-dark">Uzmanlık Alanını Seç</option>
+                            <option value="web-dev" class="bg-zen-dark">Web Geliştirme</option>
+                            <option value="mobile-dev" class="bg-zen-dark">Mobil Geliştirme</option>
+                            <option value="design" class="bg-zen-dark">Tasarım</option>
+                            <option value="writing" class="bg-zen-dark">İçerik Yazarlığı</option>
+                            <option value="marketing" class="bg-zen-dark">Dijital Pazarlama</option>
+                            <option value="data-science" class="bg-zen-dark">Veri Bilimi</option>
+                            <option value="seo" class="bg-zen-dark">SEO & SEM</option>
+                            <option value="video-editing" class="bg-zen-dark">Video Düzenleme</option>
+                            <option value="translation" class="bg-zen-dark">Çeviri</option>
+                            <option value="consulting" class="bg-zen-dark">Danışmanlık</option>
+                            <option value="other" class="bg-zen-dark">Diğer</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <select 
+                            id="experience" 
+                            required
+                            class="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white focus:outline-none focus:border-zen-blue transition-colors"
+                        >
+                            <option value="" class="bg-zen-dark">Deneyim Seviyeni Seç</option>
+                            <option value="beginner" class="bg-zen-dark">Başlangıç (0-1 yıl)</option>
+                            <option value="intermediate" class="bg-zen-dark">Orta (2-4 yıl)</option>
+                            <option value="advanced" class="bg-zen-dark">İleri (5-9 yıl)</option>
+                            <option value="expert" class="bg-zen-dark">Uzman (10+ yıl)</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-center space-x-3">
+                        <input 
+                            type="checkbox" 
+                            id="newsletter" 
+                            class="w-5 h-5 rounded border-white/20 bg-white/10 text-zen-blue focus:ring-zen-blue focus:ring-2"
+                        >
+                        <label for="newsletter" class="text-zen-gray cursor-pointer">
+                            Lansmanla ilgili özel güncellemeleri almak istiyorum
+                        </label>
+                    </div>
+
+                    <div class="flex items-center space-x-3">
+                        <input 
+                            type="checkbox" 
+                            id="terms" 
+                            required
+                            class="w-5 h-5 rounded border-white/20 bg-white/10 text-zen-blue focus:ring-zen-blue focus:ring-2"
+                        >
+                        <label for="terms" class="text-zen-gray cursor-pointer">
+                            <span class="text-white">*</span> Kullanım şartlarını ve gizlilik politikasını kabul ediyorum
+                        </label>
+                    </div>
+                    
+                    <button 
+                        type="submit" 
+                        id="submitBtn"
+                        class="w-full bg-gradient-to-r from-zen-blue to-zen-purple p-4 rounded-xl text-lg font-semibold hover:scale-105 transition-transform animate-glow flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
+                    >
+                        <span id="btnText">🔒 Ön Kayıt Ol</span>
+                        <div id="loading" class="hidden flex items-center gap-2">
+                            <div class="spinner"></div>
+                            <span>Kaydediliyor...</span>
+                        </div>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-white/10">
+        <div class="container mx-auto text-center">
+            <div class="text-2xl font-bold gradient-text mb-4">Zenkraft</div>
+            <div class="text-zen-gray">
+                Freelance dünyasının geleceği burada şekilleniyor.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Supabase Configuration
+        const SUPABASE_URL = 'https://fodjclcupehzstduoomm.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZvZGpjbGN1cGVoenN0ZHVvb21tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAwODkzNzgsImV4cCI6MjA2NTY2NTM3OH0.oSBbdlC8vJS1Gi_DtFKchJXHRvAx2aGEU1usz4IZDbo';
+
+        // Initialize Supabase client
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // DOM Elements
+        const form = document.getElementById('preRegisterForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const loading = document.getElementById('loading');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        const errorText = document.getElementById('errorText');
+
+        // Countdown Timer
+        function updateCountdown() {
+            const targetDate = new Date('2025-10-01T00:00:00').getTime();
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(3, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Smooth scrolling functions
+        function scrollToRegister() {
+            document.getElementById('register').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToFeatures() {
+            document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Utility functions
+        function hideMessages() {
+            successMessage.classList.add('hidden');
+            errorMessage.classList.add('hidden');
+        }
+
+        function showSuccess(message) {
+            hideMessages();
+            successMessage.querySelector('.text-sm').textContent = message;
+            successMessage.classList.remove('hidden');
+            successMessage.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showError(message) {
+            hideMessages();
+            errorText.textContent = message;
+            errorMessage.classList.remove('hidden');
+            errorMessage.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function setLoading(isLoading) {
+            if (isLoading) {
+                submitBtn.disabled = true;
+                btnText.classList.add('hidden');
+                loading.classList.remove('hidden');
+            } else {
+                submitBtn.disabled = false;
+                btnText.classList.remove('hidden');
+                loading.classList.add('hidden');
+            }
+        }
+
+        // Phone number formatting
+        document.getElementById('phone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.startsWith('90')) {
+                value = '+' + value;
+            } else if (value.startsWith('0')) {
+                value = '+90' + value.substring(1);
+            } else if (value && !value.startsWith('+')) {
+                value = '+90' + value;
+            }
+            e.target.value = value;
+        });
+
+        // Email validation
+        document.getElementById('email').addEventListener('blur', function(e) {
+            const email = e.target.value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (email && !emailRegex.test(email)) {
+                e.target.style.borderColor = '#ef4444';
+                showError('Lütfen geçerli bir e-posta adresi girin.');
+            } else {
+                e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                hideMessages();
+            }
+        });
+
+        // Form submission
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            hideMessages();
+            setLoading(true);
+
+            try {
+                // Collect form data
+                const formData = new FormData(form);
+                const data = {
+                    full_name: formData.get('name'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone') || null,
+                    expertise: formData.get('expertise'),
+                    experience_level: formData.get('experience'),
+                    newsletter_subscription: formData.get('newsletter') === 'on',
+                    terms_accepted: formData.get('terms') === 'on',
+                    registration_type: 'pre_registration',
+                    platform: 'zenkraft',
+                    created_at: new Date().toISOString()
+                };
+
+                // Insert to Supabase
+                const { data: result, error } = await supabase
+                    .from('zenkraft_preregistrations')
+                    .insert([data]);
+
+                if (error) {
+                    throw error;
+                }
+
+                // Success
+                showSuccess('Harika! Ön kaydın tamamlandı. Lansmanla ilgili tüm güncellemeleri e-posta ile alacaksın. 🚀');
+                form.reset();
+
+                // Analytics (optional)
+                console.log('Pre-registration successful:', result);
+
+            } catch (error) {
+                console.error('Registration error:', error);
+                
+                // Handle specific error types
+                if (error.code === '23505') {
+                    showError('Bu e-posta adresi zaten kayıtlı. Zaten ön kaydını tamamlamışsın! 😊');
+                } else if (error.message.includes('connection') || error.message.includes('network')) {
+                    showError('Bağlantı hatası. Lütfen internet bağlantını kontrol et ve tekrar dene.');
+                } else if (error.message.includes('email')) {
+                    showError('E-posta adresi geçersiz. Lütfen doğru formatta gir.');
+                } else {
+                    showError('Kayıt sırasında bir hata oluştu. Lütfen tekrar dene veya destek ekibiyle iletişime geç.');
+                }
+            } finally {
+                setLoading(false);
+            }
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(15, 23, 42, 0.95)';
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.1)';
+            }
+        });
+
+        // Test Supabase connection on page load
+        window.addEventListener('load', async () => {
+            try {
+                const { data, error } = await supabase.from('zenkraft_preregistrations').select('count').limit(1);
+                console.log('Supabase connection successful ✅');
+            } catch (error) {
+                console.warn('Supabase connection warning:', error);
+            }
+        });
+
+        // Auto-hide messages after 7 seconds
+        function autoHideMessage(element) {
+            setTimeout(() => {
+                element.classList.add('hidden');
+            }, 7000);
+        }
+
+        // Add auto-hide to success/error messages when shown
+        const originalShowSuccess = showSuccess;
+        const originalShowError = showError;
+
+        showSuccess = function(message) {
+            originalShowSuccess(message);
+            autoHideMessage(successMessage);
+        };
+
+        showError = function(message) {
+            originalShowError(message);
+            autoHideMessage(errorMessage);
+        };
+    </script>
+</body>
+</html>
